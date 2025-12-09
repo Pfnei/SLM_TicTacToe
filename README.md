@@ -58,7 +58,7 @@ java -jar target/tictactoe.jar
 
 (Falls der JAR-Name anders lautet, bitte anpassen.)
 
-📚 Git-Lerninhalte im Projekt
+Git-Lerninhalte im Projekt
 
 Dieses Projekt eignet sich perfekt für Git-Einsteiger.
 Folgende Themen werden geübt:
