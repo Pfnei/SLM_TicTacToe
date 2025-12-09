@@ -1,17 +1,47 @@
+# --- Maven / Java ---
 target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://maven.apache.org/wrapper/#usage-without-binary-jar
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+
+# Maven wrapper
 .mvn/wrapper/maven-wrapper.jar
 
-# Eclipse m2e generated files
-# Eclipse Core
+# IntelliJ IDEA
+.idea/
+*.iws
+*.ipr
+out/
+
+# Eclipse
 .project
-# JDT-specific (Eclipse Java Development Tools)
 .classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# node js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+
+# os
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
