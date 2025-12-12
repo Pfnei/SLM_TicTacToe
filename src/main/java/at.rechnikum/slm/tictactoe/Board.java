@@ -16,7 +16,7 @@ public class Board {
 		return false;
 	}
 	
-	public void placeEmpty(int x, int y, char marker) {
+	public void place(int x, int y, char marker) {
 		this.cells[x][y] = marker;
 	}
 	

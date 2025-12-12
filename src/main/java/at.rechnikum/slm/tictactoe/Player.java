@@ -13,9 +13,5 @@ public class Player {
 		return marker;
 	}
 	
-	public void setMarker(char marker) {
-		this.marker = marker;
-	}
-	
 }
 
