@@ -3,7 +3,6 @@ package at.technikum.slm.tictactoe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class BoardTest {
 	
@@ -41,13 +40,63 @@ class BoardTest {
 	
 	@Test
 	void isFull() {
+		Board board = new Board();
+		
+		board.place(1, 2, 'X');
+		assertFalse(board.isFull());
+		
+		fillBoard(board,3,3,'A');
+		assertTrue(board.isFull());
+		
+		board.clear();
+		
+		// not the whole board ist filled
+		fillBoard(board,3,2,'H');
+		assertFalse(board.isFull());
 	}
 	
 	@Test
 	void clear() {
+		Board board = new Board();
+		board.place(1, 2, 'X');
+		board.clear();
+		assertTrue(board.isCellEmpty(1,2));
+		
+		fillBoard(board,3,3,'P');
+		assertTrue(board.isFull());
+		board.clear();
+		
+		boolean boardHasEntry = false;
+				for (int x = 0; x < 3; x++) {
+			for (int y = 0; y < 3; y++) {
+				if (!board.isCellEmpty(x,y)) { boardHasEntry = true;}
+			}
+		}
+		assertFalse(boardHasEntry);
+		
+		boardHasEntry = false;
+		board.place(1, 2, 'X');
+		for (int x = 0; x < 3; x++) {
+			for (int y = 0; y < 3; y++) {
+				if (!board.isCellEmpty(x,y)) { boardHasEntry = true;}
+			}
+		}
+		assertTrue(boardHasEntry);
 	}
 	
 	@Test
 	void print() {
 	}
+	
+	
+	private void fillBoard (Board board,int xu, int yu, char marker){
+		
+		for (int x = 0; x < xu; x++) {
+			for (int y = 0; y < yu; y++) {
+				board.place(x, y, marker);
+			}
+		}
+	}
+	
 }
+
