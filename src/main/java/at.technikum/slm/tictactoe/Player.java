@@ -5,7 +5,7 @@ public class Player {
 	private char marker;
 	
 	
-	public Player(maker:char) {
+	public Player( char marker) {
 		this.marker = marker;
 	}
 	

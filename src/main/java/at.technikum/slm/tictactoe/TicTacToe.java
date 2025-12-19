@@ -20,7 +20,8 @@ public class TicTacToe {
 	public void switchCurrentPlayer() {
 	}
 	
-	public boolean isCellEmpty(int x, int y) {
+	public boolean hasWinner() {
+		return true;
 	}
 	
 	
