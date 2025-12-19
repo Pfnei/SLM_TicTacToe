@@ -28,7 +28,6 @@ class BoardTest {
 		Board board = new Board();
 		assertTrue(board.isCellEmpty(1,2));
 		board.place(1,2, '5');
-		
 		assertFalse(board.isCellEmpty(1,2));
 		assertEquals ('5', board.getCellValue(1,2));
 		assertNotEquals ('7', board.getCellValue(1,2));
@@ -59,8 +58,10 @@ class BoardTest {
 		board.clear();
 		
 		// not the whole board ist filled
-		fillBoard(board,1,2,'H');
+		fillBoard(board,0,2,'H');
 		assertFalse(board.isFull());
+		
+		
 	}
 	
 	@Test

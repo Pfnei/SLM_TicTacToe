@@ -3,11 +3,18 @@ package at.technikum.slm.tictactoe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class PlayerTest {
+
+class TicTacToeTest {
 	
 	@Test
-	void getMarker() {
+	void start() {
 	}
 	
-	
+	@Test
+	void switchCurrentPlayer() {
 	}
+	
+	@Test
+	void hasWinner() {
+	}
+}

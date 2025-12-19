@@ -11,6 +11,9 @@ public class TicTacToe {
 	
 	
 	public TicTacToe() {
+		this.board = new Board();
+		this.player1= new Player('X');
+		this.player2= new Player('O');
 	
 	}
 	
