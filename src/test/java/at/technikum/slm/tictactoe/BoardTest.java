@@ -16,7 +16,12 @@ class BoardTest {
 		
 		board.place(2,2, 'U');
 		assertFalse(board.isCellEmpty(2,2));
+		
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			board.isCellEmpty(-2, 1);
+		});
 	}
+	
 	
 	@Test
 	void place() {
@@ -32,6 +37,9 @@ class BoardTest {
 		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
 			board.place(10, 10, 'X');
 		});
+		
+
+		
 		
 		board.place(0,0, '\0');
 		System.out.println(board.getCellValue(0,0));
@@ -51,7 +59,7 @@ class BoardTest {
 		board.clear();
 		
 		// not the whole board ist filled
-		fillBoard(board,3,2,'H');
+		fillBoard(board,1,2,'H');
 		assertFalse(board.isFull());
 	}
 	
@@ -88,7 +96,21 @@ class BoardTest {
 	void print() {
 	}
 	
+	@Test
+	void getCellValue() {
+		Board board = new Board();
+		board.place(1, 2, 'X');
+		assertEquals('X', board.getCellValue(1,2));
+		assertNotEquals('A', board.getCellValue(1,2));
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			board.getCellValue(2, 15);
+		});
+	}
 	
+	
+	
+	
+	// Helpers
 	private void fillBoard (Board board,int xu, int yu, char marker){
 		
 		for (int x = 0; x < xu; x++) {

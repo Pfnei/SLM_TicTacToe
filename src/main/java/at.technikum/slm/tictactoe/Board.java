@@ -41,12 +41,16 @@ public class Board {
 	
 	}
 	
-	public char getCellValue(int x, int y) {
-			return this.cells[x][y];
-	}
-	
 	public void print() {
 	}
+	
+	// Helpers
+	public char getCellValue(int x, int y) {
+
+		return this.cells[x][y];
+	}
+	
+	
 	
 	
 }
