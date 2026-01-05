@@ -1,12 +1,15 @@
-name: ci
+name: Java CI with Maven
 on:
   push:
     branches:
-      - 'feature*'
-      - 'bugfix*'
-      - 'task*'
-      - 'refact*'
-      - 'duco*'
+      - 'feature-*/**'
+      - 'bugfix*/**'
+      - 'task*/**'
+      - 'refact*/**'
+      - 'docu*/**'
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
   build:
@@ -21,5 +24,5 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Run tests
+      - name: Run tests with Maven
         run: mvn test
