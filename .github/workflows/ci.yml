@@ -1,0 +1,25 @@
+name: ci
+on:
+  push:
+    branches:
+      - 'feature*'
+      - 'bugfix*'
+      - 'task*'
+      - 'refact*'
+      - 'duco*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Run tests
+        run: mvn test
