@@ -44,7 +44,7 @@ jobs:
 
           JAR_FILE="$(ls -1 target/*.jar | grep -v 'original-' | head -n 1 || true)"
           if [ -z "${JAR_FILE}" ]; then
-          JAR_FILE="$(ls -1 target/*.jar | head -n 1)"
+            JAR_FILE="$(ls -1 target/*.jar | head -n 1)"
           fi
 
           mv "$JAR_FILE" "target/${JAR_NAME}"
@@ -53,5 +53,5 @@ jobs:
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jar
-          path: target/*_*.jar
+          name: ${{ env.JAR_NAME }}
+          path: target/${{ env.JAR_NAME }}
