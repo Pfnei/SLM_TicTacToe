@@ -1,4 +1,6 @@
+# Name des Workflows
 name: Java CI with Maven
+# Triggers - Wann wird der Worklfow ausgeführt
 on:
   push:
     branches:
@@ -13,17 +15,19 @@ on:
 
 jobs:
   build:
+    # Virtuelle Maschine, auf der der Job läuft
     runs-on: ubuntu-latest
 
     steps:
+      # Checkt den aktuellen Repository-Code aus
       - uses: actions/checkout@v4
-
+      # Installiert Java
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
-
+      # Ausführung der Tests
       - name: Run tests with Maven
         run: mvn test
