@@ -1,0 +1,47 @@
+# Name des Workflows
+name: Java CD builds jar
+# Triggers - Wann wird der Worklfow ausgeführt
+on:
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    # Virtuelle Maschine, auf der der Job läuft
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkt den aktuellen Repository-Code aus
+      - uses: actions/checkout@v4
+      # Installiert Java
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+
+      # Baut das Projekt mit Maven
+      # clean   -> löscht alte Build-Artefakte
+      # package -> erzeugt die JAR-Datei
+     # -DskipTests -> überspringt Tests (schneller Build)
+      - name: Build JAR
+        run: mvn clean package -DskipTests
+
+      # JAR-Datei umbenennen
+      - name: Rename JAR to repoName_JJMMDD.jar
+        shell: bash
+        run: |
+            DATE=$(date +'%y%m%d')
+            REPO_NAME="${GITHUB_REPOSITORY##*/}"
+             JAR_FILE=$(ls -1 target/*.jar | head -n 1)
+            mv "$JAR_FILE" "target/${REPO_NAME}_${DATE}.jar"
+
+       # Jar_file aus GitHub Actions Artefact hochladen
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jar
+          path: target/*_*.jar
