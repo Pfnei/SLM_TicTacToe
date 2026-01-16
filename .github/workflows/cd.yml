@@ -1,0 +1,57 @@
+# Name des Workflows
+name: Java CD builds jar
+# Triggers - Wann wird der Worklfow ausgeführt
+on:
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    # Virtuelle Maschine, auf der der Job läuft
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkt den aktuellen Repository-Code aus
+      - uses: actions/checkout@v4
+      # Installiert Java
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+
+      # Baut das Projekt mit Maven
+      # clean   -> löscht alte Build-Artefakte
+      # package -> erzeugt die JAR-Datei
+     # -DskipTests -> überspringt Tests (schneller Build)
+      - name: Build JAR
+        run: mvn clean package -DskipTests
+
+      # JAR-Datei umbenennen
+      - name: Rename JAR to JJMMDD_repo_branch.jar
+        shell: bash
+        run: |
+          set -euo pipefail
+          DATE="$(date +'%y%m%d')"
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          SAFE_BRANCH="${BRANCH_NAME//\//-}"
+          JAR_NAME="${DATE}_${REPO_NAME}_${SAFE_BRANCH}.jar"
+          echo "JAR_NAME=${JAR_NAME}" >> "$GITHUB_ENV"
+
+          JAR_FILE="$(ls -1 target/*.jar | grep -v 'original-' | head -n 1 || true)"
+          if [ -z "${JAR_FILE}" ]; then
+            JAR_FILE="$(ls -1 target/*.jar | head -n 1)"
+          fi
+
+          mv "$JAR_FILE" "target/${JAR_NAME}"
+
+       # Jar_file aus GitHub Actions Artefact hochladen
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.JAR_NAME }}
+          path: target/${{ env.JAR_NAME }}
