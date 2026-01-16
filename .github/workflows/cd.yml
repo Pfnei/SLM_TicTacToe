@@ -39,7 +39,7 @@ jobs:
           REPO_NAME="${GITHUB_REPOSITORY##*/}"
           BRANCH_NAME="${GITHUB_HEAD_REF}"
           SAFE_BRANCH="${BRANCH_NAME//\//-}"
-         JAR_NAME="${DATE}_${REPO_NAME}_${SAFE_BRANCH}.jar"
+          JAR_NAME="${DATE}_${REPO_NAME}_${SAFE_BRANCH}.jar"
           echo "JAR_NAME=${JAR_NAME}" >> "$GITHUB_ENV"
 
           JAR_FILE="$(ls -1 target/*.jar | grep -v 'original-' | head -n 1 || true)"
