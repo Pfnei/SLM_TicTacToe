@@ -10,7 +10,7 @@ public class Player {
 	}
 	
 	public char getMarker() {
-		return marker;
+		return this.marker;
 	}
 	
 }
