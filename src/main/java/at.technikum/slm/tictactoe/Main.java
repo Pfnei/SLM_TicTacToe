@@ -1,4 +1,5 @@
 package at.technikum.slm.tictactoe;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -15,18 +16,33 @@ public class Main {
 
         
         while (row < 0 || row > 2) {
-            System.out.print("Row (y) [0-2]: ");
-            row = sc.nextInt();
-            if (row < 0 || row > 2) {
-                System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
+            try {
+                System.out.print("Row (y) [0-2]: ");
+                row = sc.nextInt();
+                if (row < 0 || row > 2) {
+                    System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
+                }
             }
+            catch  (InputMismatchException e) {
+                System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
+                sc.nextLine();
+            }
+            
         }
+        
+        
 
         while (column < 0 || column > 2) {
-            System.out.print("Column (x) [0-2]: ");
-            column = sc.nextInt();
-            if (column < 0 || column > 2) {
-                System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
+            try {
+                System.out.print("Column (x) [0-2]: ");
+                column = sc.nextInt();
+                if (column < 0 || column > 2) {
+                    System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
+                }
+            }
+            catch  (InputMismatchException e) {
+                    System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
+                    sc.nextLine();
             }
         }
 
