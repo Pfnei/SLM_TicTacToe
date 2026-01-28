@@ -2,26 +2,41 @@ package at.technikum.slm.tictactoe;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         Board board = new Board();
-        Player player = new Player('X'); 
+        Player player = new Player('X');
         Scanner sc = new Scanner(System.in);
 
-        int row;
-        int column;
+        int row = -1;    // y
+        int column = -1; // x
 
-        System.out.print("row (0-2): ");
-        row = sc.nextInt();
+        board.print();
 
-        System.out.print("column (0-2): ");
-        column = sc.nextInt();
-
-        if (board.isCellEmpty(row, column)) {
-            board.place(row, column, player.getMarker());
-        } else {
-            System.out.println("Sorry, this field is either empty or row and column are not within 0-2");
-        }
         
+        while (row < 0 || row > 2) {
+            System.out.print("Row (y) [0-2]: ");
+            row = sc.nextInt();
+            if (row < 0 || row > 2) {
+                System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
+            }
+        }
+
+        while (column < 0 || column > 2) {
+            System.out.print("Column (x) [0-2]: ");
+            column = sc.nextInt();
+            if (column < 0 || column > 2) {
+                System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
+            }
+        }
+
+        
+        if (board.isCellEmpty(column, row)) {
+            board.place(column, row, player.getMarker());
+        } else {
+            System.out.println("Dieses Feld ist nicht leer!");
+        }
+
+        board.print();
     }
 }
