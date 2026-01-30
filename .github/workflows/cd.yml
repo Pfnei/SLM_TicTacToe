@@ -2,7 +2,7 @@
 name: Java CD builds jar
 # Triggers - Wann wird der Worklfow ausgeführt
 on:
-  pull_request:
+  push:
     branches:
       - 'main'
 
