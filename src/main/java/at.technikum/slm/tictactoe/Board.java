@@ -54,7 +54,7 @@ public class Board {
 		for (int y = 0; y < cells.length; y++) {
 			System.out.print(y + " ");
 			for (int x = 0; x < cells[y].length; x++) {
-				System.out.print(cells[y][x]);
+				System.out.print(cells[x][y]);
 				if (x < cells[y].length - 1) System.out.print("|"); //zwischen einzelnen Zellen
 			}
 			System.out.println();
