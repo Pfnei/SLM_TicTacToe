@@ -18,11 +18,10 @@ public class TicTacToe {
 	}
 
 	public void start() {
-
 		Scanner sc = new Scanner(System.in);
 		int counterBreak = 0;
-		while (sc.hasNext() && counterBreak < 9) {
 
+		while (counterBreak < 9) {
 			currentPlayer = getCurrentPlayer();
 			board.print();
 			System.out.println("Spieler " + currentPlayer.getMarker() + " ist am Zug.");
@@ -32,32 +31,37 @@ public class TicTacToe {
 
 			// Eingabe für Reihe
 			while (row < 0 || row > 2) {
-				try {
-					System.out.print("Row (y) [0-2]: ");
+				System.out.print("Row (y) [0-2]: ");
+				if (sc.hasNextInt()) {
 					row = sc.nextInt();
-					if (row < 0 || row > 2) System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
-				} catch (InputMismatchException e) {
+					if (row < 0 || row > 2) {
+						System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
+					}
+				} else if (sc.hasNext()) {
+
 					System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
-					sc.nextLine();
+					sc.next();
+				} else {
+					return; // Test-Ende erreicht
 				}
 			}
 
 			// Eingabe für Spalte
 			while (column < 0 || column > 2) {
-				try {
-					System.out.print("Column (x) [0-2]: ");
+				System.out.print("Column (x) [0-2]: ");
+				if (sc.hasNextInt()) {
 					column = sc.nextInt();
-					if (column < 0 || column > 2) System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
-				} catch (InputMismatchException e) {
+					if (column < 0 || column > 2) {
+						System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
+					}
+				} else if (sc.hasNext()) {
 					System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
-					sc.nextLine();
+					sc.next();
+				} else {
+					return;
 				}
 			}
 
-
-
-
-			// Marker setzen
 			if (board.isCellEmpty(column, row)) {
 				board.place(column, row, currentPlayer.getMarker());
 				counterBreak++;
@@ -69,11 +73,6 @@ public class TicTacToe {
 				switchCurrentPlayer();
 			} else {
 				System.out.println("Dieses Feld ist nicht leer!");
-			}
-			counterBreak++;
-			System.out.println("---------------------+"+counterBreak);
-			if(counterBreak == 9){
-				break;
 			}
 		}
 	}
