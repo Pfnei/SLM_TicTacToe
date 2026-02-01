@@ -8,8 +8,11 @@ public class Board {
 
 	public Board() {
 		this.cells = new char[3][3];
+
 		this.clear();
 	}
+
+
 
 	public boolean isCellEmpty(int x, int y) {
 		if (this.cells[x][y] == ' ' ) return true;
@@ -55,13 +58,7 @@ public class Board {
 	}
 
 
-	// Helpers
 	public char getCellValue(int x, int y) {
-
 		return this.cells[x][y];
 	}
-
-
-
-
 }

@@ -18,9 +18,11 @@ public class TicTacToe {
 	}
 
 	public void start() {
-		Scanner sc = new Scanner(System.in);
 
-		while (true) {
+		Scanner sc = new Scanner(System.in);
+		int counterBreak = 0;
+		while (sc.hasNext() && counterBreak < 9) {
+
 			currentPlayer = getCurrentPlayer();
 			board.print();
 			System.out.println("Spieler " + currentPlayer.getMarker() + " ist am Zug.");
@@ -52,17 +54,26 @@ public class TicTacToe {
 				}
 			}
 
+
+
+
 			// Marker setzen
 			if (board.isCellEmpty(column, row)) {
 				board.place(column, row, currentPlayer.getMarker());
+				counterBreak++;
 				if (hasWinner()) {
 					board.print();
 					System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
-					break;
+					return;
 				}
 				switchCurrentPlayer();
 			} else {
 				System.out.println("Dieses Feld ist nicht leer!");
+			}
+			counterBreak++;
+			System.out.println("---------------------+"+counterBreak);
+			if(counterBreak == 9){
+				break;
 			}
 		}
 	}
