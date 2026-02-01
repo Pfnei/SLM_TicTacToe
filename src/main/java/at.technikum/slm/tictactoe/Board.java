@@ -6,14 +6,6 @@ public class Board {
 	private char[][] cells;
 
 
-	public char[][] getCells() {
-		return cells;
-	}
-
-	public void setCells(char[][] cells) {
-		this.cells = cells;
-	}
-
 	public Board() {
 		this.cells = new char[3][3];
 		this.clear();

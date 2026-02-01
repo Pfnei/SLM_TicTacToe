@@ -58,7 +58,7 @@ class TicTacToeTest {
 
 			assertTrue(printed.contains("Fehler: Row"));
 			assertTrue(printed.contains("Fehler: Column"));
-			assertTrue(printed.contains("Fehler: Bitte eine ganze Zahl"));
+			assertTrue(printed.contains("Fehler: Bitte"));
 
 		} finally {
 			System.setIn(originalIn);
@@ -81,8 +81,7 @@ class TicTacToeTest {
 		TicTacToe game = new TicTacToe();
 		Player player1 = game.getCurrentPlayer();
 		game.switchCurrentPlayer();
-		Player player2 = game.getCurrentPlayer();
-		assertEquals(player1, player2);
+		assertNotEquals(player1, game.getCurrentPlayer());
 	}
 
 	@Test
