@@ -4,9 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 class TicTacToeTest {
 
@@ -85,6 +88,23 @@ class TicTacToeTest {
 	}
 
 	@Test
-	void hasWinner() {
-	}
+    void testHasWinnerInFirstRow() {
+    	TicTacToe game = new TicTacToe();
+    	Board board = game.getBoard();
+    	board.place(0, 0, 'X');
+    	board.place(1, 0, 'X');
+    	board.place(2, 0, 'X');
+    	assertTrue(game.hasWinner(), "Spieler X sollte durch die oberste Reihe gewinnen");
+    }
+
+	@Test
+		public void testHasNoWinner() {
+    	TicTacToe game = new TicTacToe();
+    	Board board = game.getBoard();
+    	board.place(0, 0, 'X');
+    	board.place(1, 1, 'O');
+    	board.place(2, 2, 'X');
+    	assertFalse(game.hasWinner(), "Es gibt noch keinen Gewinner");
+    }
+
 }
