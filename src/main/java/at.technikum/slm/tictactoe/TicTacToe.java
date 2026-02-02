@@ -1,6 +1,5 @@
 package at.technikum.slm.tictactoe;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -90,9 +89,43 @@ public class TicTacToe {
 	}
 
 	public boolean hasWinner() {
+    char m = currentPlayer.getMarker();
 
-		return false;
-	}
+    // Reihen prüfen
+    for (int y = 0; y < 3; y++) {
+        if (board.getCellValue(0, y) == m &&
+            board.getCellValue(1, y) == m &&
+            board.getCellValue(2, y) == m) {
+            return true;
+        }
+    }
+
+    // Spalten prüfen
+    for (int x = 0; x < 3; x++) {
+        if (board.getCellValue(x, 0) == m &&
+            board.getCellValue(x, 1) == m &&
+            board.getCellValue(x, 2) == m) {
+            return true;
+        }
+    }
+
+    // Diagonale links oben → rechts unten
+    if (board.getCellValue(0, 0) == m &&
+        board.getCellValue(1, 1) == m &&
+        board.getCellValue(2, 2) == m) {
+        return true;
+    }
+
+    // Diagonale rechts oben → links unten
+    if (board.getCellValue(2, 0) == m &&
+        board.getCellValue(1, 1) == m &&
+        board.getCellValue(0, 2) == m) {
+        return true;
+    }
+
+    return false;
+}
+
 
 	public Board getBoard() {
 		return board;
