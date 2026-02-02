@@ -73,6 +73,8 @@ public class TicTacToe {
 			} else {
 				System.out.println("Dieses Feld ist nicht leer!");
 			}
+			board.print();
+            System.out.println("Unentschieden!");
 		}
 	}
 
