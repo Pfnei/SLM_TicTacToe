@@ -19,6 +19,7 @@ public class TicTacToe {
 	public void start() {
 		Scanner sc = new Scanner(System.in);
 		int counterBreak = 0;
+		boolean gameOver = false;
 
 		while (counterBreak < 9) {
 			currentPlayer = getCurrentPlayer();
@@ -67,14 +68,26 @@ public class TicTacToe {
 				if (hasWinner()) {
 					board.print();
 					System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
-					return;
+					System.out.print("Nochmal spielen? (j/n): ");
+
+					String choice = sc.next();
+
+					if (choice.equalsIgnoreCase("j")) {
+						board.clear();
+						counterBreak = 0;
+						currentPlayer = player1;
+						continue;
+					} else {
+						System.out.println("Auf Wiedersehen!");
+						return;
+					}
 				}
 				switchCurrentPlayer();
 			} else {
 				System.out.println("Dieses Feld ist nicht leer!");
 			}
 			board.print();
-            System.out.println("Unentschieden!");
+			System.out.println("Unentschieden!");
 		}
 	}
 
@@ -91,42 +104,42 @@ public class TicTacToe {
 	}
 
 	public boolean hasWinner() {
-    char m = currentPlayer.getMarker();
+		char m = currentPlayer.getMarker();
 
-    // Reihen prüfen
-    for (int y = 0; y < 3; y++) {
-        if (board.getCellValue(0, y) == m &&
-            board.getCellValue(1, y) == m &&
-            board.getCellValue(2, y) == m) {
-            return true;
-        }
-    }
+		// Reihen prüfen
+		for (int y = 0; y < 3; y++) {
+			if (board.getCellValue(0, y) == m &&
+					board.getCellValue(1, y) == m &&
+					board.getCellValue(2, y) == m) {
+				return true;
+			}
+		}
 
-    // Spalten prüfen
-    for (int x = 0; x < 3; x++) {
-        if (board.getCellValue(x, 0) == m &&
-            board.getCellValue(x, 1) == m &&
-            board.getCellValue(x, 2) == m) {
-            return true;
-        }
-    }
+		// Spalten prüfen
+		for (int x = 0; x < 3; x++) {
+			if (board.getCellValue(x, 0) == m &&
+					board.getCellValue(x, 1) == m &&
+					board.getCellValue(x, 2) == m) {
+				return true;
+			}
+		}
 
-    // Diagonale links oben → rechts unten
-    if (board.getCellValue(0, 0) == m &&
-        board.getCellValue(1, 1) == m &&
-        board.getCellValue(2, 2) == m) {
-        return true;
-    }
+		// Diagonale links oben → rechts unten
+		if (board.getCellValue(0, 0) == m &&
+				board.getCellValue(1, 1) == m &&
+				board.getCellValue(2, 2) == m) {
+			return true;
+		}
 
-    // Diagonale rechts oben → links unten
-    if (board.getCellValue(2, 0) == m &&
-        board.getCellValue(1, 1) == m &&
-        board.getCellValue(0, 2) == m) {
-        return true;
-    }
+		// Diagonale rechts oben → links unten
+		if (board.getCellValue(2, 0) == m &&
+				board.getCellValue(1, 1) == m &&
+				board.getCellValue(0, 2) == m) {
+			return true;
+		}
 
-    return false;
-}
+		return false;
+	}
 
 
 	public Board getBoard() {
