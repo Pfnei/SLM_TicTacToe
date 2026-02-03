@@ -33,7 +33,8 @@ public class TicTacToe {
 
 				// Reihe
 				while (row < 0 || row > 2) {
-					System.out.print("Row (y) [0-2] oder 'q': ");
+					System.out.println("Press \"q\" to exit.");
+					System.out.print("Row (y) [0-2]: ");
 					String input = sc.next();
 
 					if (input.equalsIgnoreCase("q")) {
@@ -54,7 +55,8 @@ public class TicTacToe {
 
 				// Spalte
 				while (column < 0 || column > 2) {
-					System.out.print("Column (x) [0-2] oder 'q': ");
+					System.out.println("Press \"q\" to exit.");
+					System.out.print("Column (x) [0-2]: ");
 					String input = sc.next();
 
 					if (input.equalsIgnoreCase("q")) {
@@ -76,6 +78,8 @@ public class TicTacToe {
 				if (board.isCellEmpty(column, row)) {
 					board.place(column, row, currentPlayer.getMarker());
 					counterBreak++;
+
+					if (!sc.hasNext()) return;
 
 					if (hasWinner()) {
 						board.print();
