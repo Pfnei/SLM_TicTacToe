@@ -20,7 +20,7 @@ class TicTacToeTest {
 
 		try {
 			// Spieler X setzt auf (0,0)
-			String input = "0\n0\n";
+			String input = "0\n0\nq\n";
 			System.setIn(new ByteArrayInputStream(input.getBytes()));
 
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -48,7 +48,7 @@ class TicTacToeTest {
 
 		try {
 			// viele ungültige Eingaben, dann gültige
-			String input = "-1\n5\n1.2\n0\n3\n0\n";
+			String input = "-1\n5\n1.2\n0\n3\n0\nq\n";
 			System.setIn(new ByteArrayInputStream(input.getBytes()));
 
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
