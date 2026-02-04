@@ -79,8 +79,7 @@ public class TicTacToe {
 					board.place(column, row, currentPlayer.getMarker());
 					counterBreak++;
 
-					if (!sc.hasNext()) return;
-
+					
 					if (hasWinner()) {
 						board.print();
 						System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
