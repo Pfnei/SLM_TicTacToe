@@ -38,7 +38,14 @@ public class TicTacToe {
 					String input = sc.next();
 
 					if (input.equalsIgnoreCase("q")) {
-						return;
+						System.out.println("Spiel wurde abgebrochen!");
+						System.out.print("Nochmal spielen? (j/n): ");
+						String choice = sc.next();
+						if (!choice.equalsIgnoreCase("j")) {
+							System.out.println("Auf Wiedersehen!");
+							return;
+						}
+						break;
 					}
 
 					try {
@@ -60,7 +67,14 @@ public class TicTacToe {
 					String input = sc.next();
 
 					if (input.equalsIgnoreCase("q")) {
-						return;
+						System.out.println("Spiel wurde abgebrochen!");
+						System.out.print("Nochmal spielen? (j/n): ");
+						String choice = sc.next();
+						if (!choice.equalsIgnoreCase("j")) {
+							System.out.println("Auf Wiedersehen!");
+							return;
+						}
+						break;
 					}
 
 					try {
