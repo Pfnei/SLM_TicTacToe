@@ -58,6 +58,7 @@ public class TicTacToe {
 					}
 				}
 
+				if (row < 0 || row > 2) continue; // durch q → neues Spiel
 
 				// Spalte
 				while (column < 0 || column > 2) {
@@ -86,6 +87,7 @@ public class TicTacToe {
 					}
 				}
 
+				if (column < 0 || column > 2) continue; // durch q → neues Spiel
 
 				if (board.isCellEmpty(column, row)) {
 					board.place(column, row, currentPlayer.getMarker());
