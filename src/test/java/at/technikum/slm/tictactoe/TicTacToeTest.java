@@ -20,7 +20,7 @@ class TicTacToeTest {
 
 		try {
 			// Spieler X setzt auf (0,0)
-			String input = "0\n0\n";
+			String input = "0\n0\nq\nn\n";
 			System.setIn(new ByteArrayInputStream(input.getBytes()));
 
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -48,7 +48,7 @@ class TicTacToeTest {
 
 		try {
 			// viele ungültige Eingaben, dann gültige
-			String input = "-1\n5\n1.2\n0\n3\n0\n";
+			String input = "-1\n5\n1.2\n0\n3\n0\nq\nn\n";
 			System.setIn(new ByteArrayInputStream(input.getBytes()));
 
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -68,7 +68,59 @@ class TicTacToeTest {
 			System.setOut(originalOut);
 		}
 	}
-
+	
+	@Test
+	void start_quitGameInColumn() {
+		InputStream originalIn = System.in;
+		PrintStream originalOut = System.out;
+		
+		try {
+			// Spieler X setzt auf (0,0)
+			String input = "1\nq\nn\n";
+			System.setIn(new ByteArrayInputStream(input.getBytes()));
+			
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			System.setOut(new PrintStream(out));
+			
+			TicTacToe game = new TicTacToe();
+			game.start();
+			
+			String printed = out.toString();
+			
+			assertTrue(printed.contains("abgebrochen"));
+			
+		} finally {
+			System.setIn(originalIn);
+			System.setOut(originalOut);
+		}
+	}
+	
+	
+	@Test
+	void start_quitGameInRow() {
+		InputStream originalIn = System.in;
+		PrintStream originalOut = System.out;
+		
+		try {
+			// Spieler X setzt auf (0,0)
+			String input = "q\nn\n";
+			System.setIn(new ByteArrayInputStream(input.getBytes()));
+			
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			System.setOut(new PrintStream(out));
+			
+			TicTacToe game = new TicTacToe();
+			game.start();
+			
+			String printed = out.toString();
+			
+			assertTrue(printed.contains("abgebrochen"));
+			
+		} finally {
+			System.setIn(originalIn);
+			System.setOut(originalOut);
+		}
+	}
 
 	@Test
 	void switchCurrentPlayer_switchBackToPlayer1() {

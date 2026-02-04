@@ -18,76 +18,109 @@ public class TicTacToe {
 
 	public void start() {
 		Scanner sc = new Scanner(System.in);
-		int counterBreak = 0;
-		boolean gameOver = false;
 
-		while (counterBreak < 9) {
-			currentPlayer = getCurrentPlayer();
-			board.print();
-			System.out.println("Spieler " + currentPlayer.getMarker() + " ist am Zug.");
+		while (true) { // Gesamtschleife für mehrere Spiele
+			board.clear();
+			currentPlayer = player1;
+			int counterBreak = 0;
 
-			int row = -1;
-			int column = -1;
+			while (counterBreak < 9) {
+				board.print();
+				System.out.println("Spieler " + currentPlayer.getMarker() + " ist am Zug.");
 
-			// Eingabe für Reihe
-			while (row < 0 || row > 2) {
-				System.out.print("Row (y) [0-2]: ");
-				if (sc.hasNextInt()) {
-					row = sc.nextInt();
-					if (row < 0 || row > 2) {
-						System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
+				int row = -1;
+				int column = -1;
+
+				// Reihe
+				while (row < 0 || row > 2) {
+					System.out.println("Press \"q\" to exit.");
+					System.out.print("Row (y) [0-2]: ");
+					String input = sc.next();
+
+					if (input.equalsIgnoreCase("q")) {
+						System.out.println("Spiel wurde abgebrochen!");
+						System.out.print("Nochmal spielen? (j/n): ");
+						String choice = sc.next();
+						if (!choice.equalsIgnoreCase("j")) {
+							System.out.println("Auf Wiedersehen!");
+							return;
+						}
+						break;
 					}
-				} else if (sc.hasNext()) {
 
-					System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
-					sc.next();
+					try {
+						row = Integer.parseInt(input);
+						if (row < 0 || row > 2) {
+							System.out.println("Fehler: Row muss zwischen 0 und 2 liegen!");
+						}
+					} catch (NumberFormatException e) {
+						System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
+					}
+				}
+
+
+				// Spalte
+				while (column < 0 || column > 2) {
+					System.out.println("Press \"q\" to exit.");
+					System.out.print("Column (x) [0-2]: ");
+					String input = sc.next();
+
+					if (input.equalsIgnoreCase("q")) {
+						System.out.println("Spiel wurde abgebrochen!");
+						System.out.print("Nochmal spielen? (j/n): ");
+						String choice = sc.next();
+						if (!choice.equalsIgnoreCase("j")) {
+							System.out.println("Auf Wiedersehen!");
+							return;
+						}
+						break;
+					}
+
+					try {
+						column = Integer.parseInt(input);
+						if (column < 0 || column > 2) {
+							System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
+						}
+					} catch (NumberFormatException e) {
+						System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
+					}
+				}
+
+
+				if (board.isCellEmpty(column, row)) {
+					board.place(column, row, currentPlayer.getMarker());
+					counterBreak++;
+
+					
+					if (hasWinner()) {
+						board.print();
+						System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
+						System.out.print("Nochmal spielen? (j/n): ");
+						String choice = sc.next();
+						if (!choice.equalsIgnoreCase("j")) {
+							System.out.println("Auf Wiedersehen!");
+							return;
+						}
+						break; // neues Spiel
+					}
+
+					switchCurrentPlayer();
 				} else {
-					return; // Test-Ende erreicht
+					System.out.println("Dieses Feld ist nicht leer!");
 				}
 			}
 
-			// Eingabe für Spalte
-			while (column < 0 || column > 2) {
-				System.out.print("Column (x) [0-2]: ");
-				if (sc.hasNextInt()) {
-					column = sc.nextInt();
-					if (column < 0 || column > 2) {
-						System.out.println("Fehler: Column muss zwischen 0 und 2 liegen!");
-					}
-				} else if (sc.hasNext()) {
-					System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
-					sc.next();
-				} else {
+			// UNENTSCHIEDEN
+			if (counterBreak == 9) {
+				board.print();
+				System.out.println("Unentschieden!");
+				System.out.print("Nochmal spielen? (j/n): ");
+				String choice = sc.next();
+				if (!choice.equalsIgnoreCase("j")) {
+					System.out.println("Auf Wiedersehen!");
 					return;
 				}
 			}
-
-			if (board.isCellEmpty(column, row)) {
-				board.place(column, row, currentPlayer.getMarker());
-				counterBreak++;
-				if (hasWinner()) {
-					board.print();
-					System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
-					System.out.print("Nochmal spielen? (j/n): ");
-
-					String choice = sc.next();
-
-					if (choice.equalsIgnoreCase("j")) {
-						board.clear();
-						counterBreak = 0;
-						currentPlayer = player1;
-						continue;
-					} else {
-						System.out.println("Auf Wiedersehen!");
-						return;
-					}
-				}
-				switchCurrentPlayer();
-			} else {
-				System.out.println("Dieses Feld ist nicht leer!");
-			}
-			board.print();
-			System.out.println("Unentschieden!");
 		}
 	}
 
@@ -106,7 +139,6 @@ public class TicTacToe {
 	public boolean hasWinner() {
 		char m = currentPlayer.getMarker();
 
-		// Reihen prüfen
 		for (int y = 0; y < 3; y++) {
 			if (board.getCellValue(0, y) == m &&
 					board.getCellValue(1, y) == m &&
@@ -115,7 +147,6 @@ public class TicTacToe {
 			}
 		}
 
-		// Spalten prüfen
 		for (int x = 0; x < 3; x++) {
 			if (board.getCellValue(x, 0) == m &&
 					board.getCellValue(x, 1) == m &&
@@ -124,14 +155,12 @@ public class TicTacToe {
 			}
 		}
 
-		// Diagonale links oben → rechts unten
 		if (board.getCellValue(0, 0) == m &&
 				board.getCellValue(1, 1) == m &&
 				board.getCellValue(2, 2) == m) {
 			return true;
 		}
 
-		// Diagonale rechts oben → links unten
 		if (board.getCellValue(2, 0) == m &&
 				board.getCellValue(1, 1) == m &&
 				board.getCellValue(0, 2) == m) {
@@ -141,8 +170,9 @@ public class TicTacToe {
 		return false;
 	}
 
-
 	public Board getBoard() {
 		return board;
 	}
 }
+
+
