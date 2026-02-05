@@ -23,7 +23,8 @@ public class TicTacToe {
 			board.clear();
 			currentPlayer = player1;
 			int counterBreak = 0;
-
+			
+			middle:
 			while (counterBreak < 9) {
 				board.print();
 				System.out.println("Spieler " + currentPlayer.getMarker() + " ist am Zug.");
@@ -45,7 +46,7 @@ public class TicTacToe {
 							System.out.println("Auf Wiedersehen!");
 							return;
 						}
-						break;
+						break middle; // springt aus den inneren beiden Schleifen bzw. macht nach der middle weiter
 					}
 
 					try {
@@ -58,8 +59,7 @@ public class TicTacToe {
 					}
 				}
 
-				if (row < 0 || row > 2) continue; // durch q → neues Spiel
-
+			
 				// Spalte
 				while (column < 0 || column > 2) {
 					System.out.println("Press \"q\" to exit.");
@@ -74,7 +74,7 @@ public class TicTacToe {
 							System.out.println("Auf Wiedersehen!");
 							return;
 						}
-						break;
+						break middle;
 					}
 
 					try {
@@ -86,8 +86,6 @@ public class TicTacToe {
 						System.out.println("Fehler: Bitte eine ganze Zahl eingeben!");
 					}
 				}
-
-				if (column < 0 || column > 2) continue; // durch q → neues Spiel
 
 				if (board.isCellEmpty(column, row)) {
 					board.place(column, row, currentPlayer.getMarker());
